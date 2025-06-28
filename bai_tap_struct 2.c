@@ -37,7 +37,29 @@ void trung_binh(hoc_sinh ds[], int n) {
 	printf("Diem Van: %.2f\n", ds[max].diem_van);
 	printf("Diem Trung Binh: %.2f\n", max_tb);
 }
-
+//bài 4: 
+void sort(hoc_sinh ds[], int n) {
+	for (int i = 0; i < n - 1; i++) { 
+		for (int j = i + 1; j < n; j++) {
+			float tb_i = (ds[i].diem_toan + ds[i].diem_van) / 2;
+			float tb_j = (ds[j].diem_toan + ds[j].diem_van) / 2;
+			if (tb_i < tb_j) {
+				hoc_sinh temp = ds[i];
+				ds[i] = ds[j];
+				ds[j] = temp;
+			}
+		}
+	}
+}
+void in_danh_sach(hoc_sinh ds[], int n) {
+    printf("\nDanh sach hoc sinh sau khi sap xep theo diem trung binh:\n");
+    for (int i = 0; i < n; i++) {
+        float tb = (ds[i].diem_toan + ds[i].diem_van) / 2;
+        printf("Ten: %s", ds[i].ten);
+        printf("Diem Toan: %.2f, Diem Van: %.2f, TB: %.2f\n\n",
+               ds[i].diem_toan, ds[i].diem_van, tb);
+    }
+}
 
 int main() {
 	int n;
@@ -51,6 +73,8 @@ int main() {
 		nhap(& danh_sach[i]);
 	}
 	trung_binh(danh_sach, n);
+	sort(danh_sach, n);
+	in_danh_sach(danh_sach, n);
 	return 0;
 }
 
