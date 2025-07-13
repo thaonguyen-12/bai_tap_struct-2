@@ -2,12 +2,34 @@
 #include <stdio.h>
 #define MAX 100
 
+
+typedef enum {
+	Nam,
+	Nu
+}gioi_tinh_t;
+typedef enum {
+	Gioi,
+	Kha,
+	Trungbinh,
+	Yeu
+}xep_loai_t;
 typedef struct {
 	char ten[100];
 	float diem_toan;
 	float diem_van;
+	gioi_tinh_t gioi_tinh;
+	xep_loai_t xep_loai;
 }hoc_sinh;
-
+xep_loai_t tinh_xep_loai(float dtb) {
+	if (dtb >= 8.0)
+		return Gioi;
+	else if (dtb >= 6.5)
+		return Kha;
+	else if (dtb >= 5.0)
+		return Trungbinh;
+	else
+		return Yeu;
+}
 //bài 1: 
 void nhap(hoc_sinh* hs) {
 	printf("ten: ");
@@ -16,7 +38,18 @@ void nhap(hoc_sinh* hs) {
 	scanf("%f", &hs->diem_toan);
 	printf("Diem Van: ");
 	scanf("%f", &hs->diem_van);
+	printf("Gioi tinh (0: Nam, 1: Nu): ");
+	int gt;
+	scanf("%d", &gt);
+	if (gt == 0)
+		hs->gioi_tinh = Nam;
+	else
+		hs->gioi_tinh = Nu;
 	getchar();
+	
+	float dtb = (hs->diem_toan + hs->diem_van) / 2.0;
+	hs->xep_loai = tinh_xep_loai(dtb);
+
 }
 
 //bài 3: 
